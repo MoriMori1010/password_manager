@@ -12,7 +12,7 @@ cat << EOF >> file.txt
 --------------------------------
 EOF
 
-echo"パスワードの追加は成功しました。"
+echo "パスワードの追加は成功しました。"
 }
 
 get_password(){
@@ -25,3 +25,18 @@ else
 fi
 }
 
+echo "パスワードマネージャへようこそ！"
+while true; do
+read -p "次の選択肢から入力してください(AddPassword/GetPassword/Exit):" chose
+
+if [ "$chose" = "Exit" ]; then
+	echo "Thank you!" 
+	break
+elif [ "$chose" = "AddPassword" ]; then
+	add_password
+elif [ "$chose" = "GetPassword" ]; then
+	get_password
+else
+	echo "入力が間違えています。AddPassword/GetPassword/Exitから入力してください。"
+fi
+done
