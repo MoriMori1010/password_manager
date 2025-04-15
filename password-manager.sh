@@ -1,16 +1,21 @@
 #!/bin/bash
 add_password(){
-read -p "サービス名を入力してください！" service_name
-read -p "ユーザー名を入力してください！" user_name
-read -p "パスワードを入力してください！" password
-echo
+#tempの一時ファイルに複合して保存する
+gpg -d file.txt.gpg > temp.txt
 
-cat << EOF >> file.txt
-サービス名: $service_name
-ユーザー名: $user_name
-パスワード: $password
---------------------------------
-EOF
+echo "サービス名を入力してください！" 
+read service_name
+echo "ユーザー名を入力してください！" 
+read user_name
+echo "パスワードを入力してください！" 
+read password
+
+#一時ファイルに追記する
+echo -e "echo -e "\nサービス名: $service_name\nユーザー名: $user_name\nパスワード: $password" >> temp.txt
+"
+gpg -c -o file.txt.gpg temp.txt
+#ファイルの削除
+rm temp.txt
 
 echo "パスワードの追加は成功しました。"
 }
