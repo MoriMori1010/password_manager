@@ -1,14 +1,14 @@
 #!/bin/bash
+
+#パスワードを追加する関数
 add_password(){
 #tempの一時ファイルに複合して保存する
 gpg -d file.txt.gpg > temp.txt
 
-echo "サービス名を入力してください！" 
-read service_name
-echo "ユーザー名を入力してください！" 
-read user_name
-echo "パスワードを入力してください！" 
-read password
+#情報をもらう
+read -p "サービス名を入力してください！" service_name
+read -p "ユーザー名を入力してください！" user_name
+read -p "パスワードを入力してください！" password
 
 #一時ファイルに追記する
 echo -e "echo -e "\nサービス名: $service_name\nユーザー名: $user_name\nパスワード: $password" >> temp.txt
@@ -20,9 +20,10 @@ rm temp.txt
 echo "パスワードの追加は成功しました。"
 }
 
+#パスワードを受け取る関数
 get_password(){
 read -p "サービスを入力してください:" search_setvice
-
+#ファイルを複合して検索する
 if gpg -d file.txt.gpg | grep -q "$search_service"; then
 	gpg -d file.txt.gpg |  grep -A 2 "$search_service" 
 
