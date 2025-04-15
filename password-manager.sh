@@ -21,9 +21,10 @@ echo "パスワードの追加は成功しました。"
 }
 
 get_password(){
-read -p "サービスを入力してください:" search_service
-if grep -q "$search_service" file.txt; then
-	grep -A 2 "$search_service" file.txt
+read -p "サービスを入力してください:" search_setvice
+
+if gpg -d file.txt.gpg | grep -q "$search_service"; then
+	gpg -d file.txt.gpg |  grep -A 2 "$search_service" 
 
 else
 	echo "$search_service は登録されていません。"
